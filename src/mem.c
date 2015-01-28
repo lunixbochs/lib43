@@ -11,6 +11,16 @@ int memcmp(const void *p1, const void *p2, int num) {
     return 0;
 }
 
+void *memchr(const void *ptr, int c, int n) {
+    unsigned const char *cptr = ptr;
+    for (int i = 0; i < n; i++) {
+        if (cptr[i] == c) {
+            return (void *)cptr+i;
+        }
+    }
+    return 0;
+}
+
 void *memcpy(void *dst, const void *src, int num) {
     char *cdst = dst;
     const char *csrc = src;
