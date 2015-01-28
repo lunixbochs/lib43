@@ -1,2 +1,3 @@
-sys(write)
 sys(exit)
+sys(read)
+sys(write)
