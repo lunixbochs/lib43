@@ -4,12 +4,12 @@
 #if defined(__APPLE__)
 #define sys(name) \
     int name() {  \
-        __asm__ __volatile__(       \
-            "movq %0, %%rax;"       \
-            "syscall;"              \
-            ::"i"(SYS_##name + 0x2) \
-            :"rax"                  \
-       );                           \
+        __asm__ __volatile__(             \
+            "movq %0, %%rax;"             \
+            "syscall;"                    \
+            ::"i"(SYS_##name + 0x2000000) \
+            :"rax"                        \
+       );                                 \
     }
 #elif defined(__linux__)
 #define sys(name) \
