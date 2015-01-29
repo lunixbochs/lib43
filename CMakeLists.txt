@@ -13,6 +13,10 @@ enable_language(ASM-ATT)
 file(GLOB_RECURSE LIB43_SOURCE src/*.c src/*.s)
 add_library(43 STATIC ${LIB43_SOURCE})
 
-set(CMAKE_C_FLAGS "-std=c99 -Os -ffreestanding -nostdlib")
+set(CMAKE_C_FLAGS "-std=c99 -Os -ffreestanding -fno-stack-protector -nostdlib")
 add_executable(test example/test.c)
+
+if (APPLE)
+     target_link_libraries(test system)
+endif(APPLE)
 target_link_libraries(test 43)
