@@ -1,0 +1,10 @@
+language: c
+sudo: false
+
+compiler:
+ - clang
+ - gcc
+
+install: cmake
+script: "cmake . && make"
+after_script: bin/test
