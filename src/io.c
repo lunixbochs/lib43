@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 #include "stdlib.h"
-#include "syscall.h"
+#include "syscalls.h"
 
 static FILE _stderr = {.fd = 2};
 static FILE _stdin = {.fd = 0};
@@ -24,7 +24,7 @@ static int buf_write(FILE *f, const char *s, int len) {
     // TODO: EOF + error handling
     if ((len + f->size) > BUFSIZE) {
         fflush(f);
-        return write(f->fd, s, len);
+        return _write(f->fd, s, len);
     }
     memcpy(f->buf + f->size, s, len);
     f->size += len;
@@ -59,9 +59,9 @@ static int buf_read(FILE *f, char *d, int len) {
     }
     if (len > BUFSIZE) {
         // TODO: error precedence over length?
-        return ret + read(f->fd, d, len);
+        return ret + _read(f->fd, d, len);
     } else if (len > 0) {
-        count = read(f->fd, pos, BUFSIZE);
+        count = _read(f->fd, pos, BUFSIZE);
         if (count < 0) {
             return count;
         } else if (count == 0) {
@@ -82,7 +82,7 @@ static int buf_read(FILE *f, char *d, int len) {
 
 int fflush(FILE *f) {
     if (f->size == 0) return 0;
-    int ret = write(f->fd, f->buf, f->size);
+    int ret = _write(f->fd, f->buf, f->size);
     freset(f);
     return ret;
 }

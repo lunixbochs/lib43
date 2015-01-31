@@ -1,4 +1,6 @@
 #include "io.h"
 #include "mem.h"
+#include "mman.h"
 #include "num.h"
 #include "string.h"
+#include "syscalls.h"
