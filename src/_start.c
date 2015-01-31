@@ -1,16 +1,25 @@
 #include "syscall.h"
 #include "io.h"
 
-extern int main();
-
 void _start() {
-    int ret;
+    static abi_long ret;
     __asm__ __volatile__ (
-         "pop %%rbp;" // C compiler will push rbp
-         "pop %%rdi;"        // argc
-         "mov %%rsp, %%rsi;" // argv
-         "andq $-16, %%rsp;"
+#ifdef __LP64__
+         "pop %%rbp;"
+         "pop %%rdi;"
+         "mov %%rsp, %%rsi;"
+         "and $-16, %%rsp;"
          "call main;"
+         "mov %%rax, %0;"
+#else
+         "leave;"
+         "pop %%ecx;"
+         "and $-16, %%esp;"
+         "push %%esp;"
+         "push %%ecx;"
+         "call main;"
+         "mov %%eax, %0;"
+#endif
          :"=r"(ret)
     );
     fflush(stdout);
