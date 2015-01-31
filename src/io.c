@@ -18,6 +18,9 @@ static void freset(FILE *f) {
 }
 
 static int buf_write(FILE *f, const char *s, int len) {
+    if (len == 0) {
+        return fflush(f) - f->size;
+    }
     // TODO: EOF + error handling
     if ((len + f->size) > BUFSIZE) {
         fflush(f);
@@ -66,15 +69,15 @@ static int buf_read(FILE *f, char *d, int len) {
             else         return -1;
         } else if (count > len) {
             memcpy(d, pos, len);
-            memmove(f->buf, f->buf + len, count);
+            memmove(f->buf, pos + len, count - len);
             f->size = count - len;
             return ret + len;
         } else {
-            memcpy(d, f->buf, count);
-            freset(f);
+            memcpy(d, pos, count);
             return ret + count;
         }
     }
+    return ret;
 }
 
 int fflush(FILE *f) {
