@@ -8,13 +8,14 @@ size_t strlen(const char *s1) {
 }
 
 char *strcpy(char *dst, const char *src) {
-    do *dst = *src; while (*src++ != '\0');
+    char *out = dst;
+    do *out++ = *src; while (*src++ != '\0');
     return dst;
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
     size_t i = 0;
-    do *dst = *src; while (*src++ != '\0' && i++ < n);
+    do dst[i] = *src; while (*src++ != '\0' && i++ < n);
     return dst;
 }
 
