@@ -9,11 +9,8 @@ _start:
     push %ecx
     call main
 
-    push %eax
-    call exit
-
     push stdout
     call fflush
     pop %ecx
 
-    call exit
+    call _exit

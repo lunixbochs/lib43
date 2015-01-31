@@ -6,7 +6,7 @@ _start:
     and $-16, %rsp
     call main
     push %rax
-    mov %rdi, stdout
+    mov stdout, %rdi
     call fflush
     pop %rdi
-    call exit
+    call _exit
