@@ -17,5 +17,5 @@ int _munmap(void *addr, abi_long len) {
     return syscall2(SYS(munmap), addr, len);
 }
 void _exit(int status) {
-    syscall1(SYS(exit), status);
+    (void)syscall1(SYS(exit), status);
 }

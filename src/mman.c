@@ -20,7 +20,7 @@ void *malloc(size_t size) {
     return p + sizeof(size_t);
 }
 
-void *free(void *p) {
+void free(void *p) {
     if (p != 0) {
         p -= sizeof(size_t);
         size_t size = *(size_t *)p;

@@ -1,3 +1,6 @@
+#ifndef SYSCALL_H
+#define SYSCALL_H
+
 #include <stdint.h>
 #include <sys/syscall.h>
 
@@ -24,3 +27,5 @@ extern abi_long syscall(int n, abi_long a1, abi_long a2, abi_long a3, abi_long a
 #define syscall2(n, args...) syscall3(n, args, 0)
 #define syscall1(n, args...) syscall2(n, args, 0)
 #define syscall0(n) syscall1(n, 0)
+
+#endif // SYSCALL_H

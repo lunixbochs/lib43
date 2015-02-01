@@ -88,14 +88,14 @@ int fflush(FILE *f) {
 }
 
 int fgetc(FILE *f) {
-    unsigned char c;
+    char c;
     int ret = buf_read(f, &c, 1);
     if (ret < 1) return -1;
-    return c;
+    return (unsigned char)c;
 }
 
 int fputc(int c, FILE *f) {
-    unsigned char _c = c;
+    char _c = c;
     return buf_write(f, &_c, 1);
 }
 
@@ -164,4 +164,5 @@ int printf(const char *fmt, ...) {
     }
     va_end(params);
 #undef arg
+    return 0;
 }
