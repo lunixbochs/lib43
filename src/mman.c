@@ -3,8 +3,10 @@
 
 #include <sys/mman.h>
 
-#ifndef MAP_ANONYMOUS
+#if !defined(MAP_ANONYMOUS) && defined(__linux__)
 #define MAP_ANONYMOUS 0x20
+#elif defined(__APPLE__)
+#define MAP_ANONYMOUS 0x1000
 #endif
 
 void *malloc(size_t size) {

@@ -1,6 +1,12 @@
 #include <stdint.h>
 #include <sys/syscall.h>
 
+#ifdef __APPLE__
+#  define SYS(name) (SYS_##name + 0x2000000)
+#else
+#  define SYS(name) SYS_##name
+#endif
+
 #ifdef __LP64__
 typedef int64_t abi_long;
 #else

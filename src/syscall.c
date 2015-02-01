@@ -8,7 +8,7 @@
 #endif
 
 #define reg(name) register abi_long name __asm__(#name)
-#if defined(__linux__)
+#if defined(__linux__) || defined(__APPLE__)
 #  ifdef __LP64__
 #    define SYSCALL_PREFIX reg(rax) = n; reg(rdi) = a1; reg(rsi) = a2; reg(rdx) = a3; \
                                          reg(r10) = a4; reg(r8)  = a5; reg(r9)  = a6;
