@@ -6,8 +6,9 @@ int main(int argc, char **argv) {
     for (int i = 0; i < argc; i++) {
         printf("%s\n", argv[i]);
     }
-    void *test = malloc(8);
-    memset(test, '\0', 8);
+    void *test = malloc(100);
+    test = realloc(test, 10000);
+    memset(test, '\0', 10000);
     strcpy(test, "hi");
     printf("test: %s\n", test);
     free(test);
