@@ -80,6 +80,14 @@ static int buf_read(FILE *f, char *d, int len) {
     return ret;
 }
 
+size_t fread(char *d, size_t size, size_t count, FILE *f) {
+    return buf_read(f, d, size * count);
+}
+
+size_t fwrite(const char *s, size_t size, size_t count, FILE *f) {
+    return buf_write(f, s, size * count);
+}
+
 int fflush(FILE *f) {
     if (f->size == 0) return 0;
     int ret = _write(f->fd, f->buf, f->size);

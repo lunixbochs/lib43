@@ -15,3 +15,5 @@ int fputc(int c, FILE *f);
 int printf(const char *fmt, ...);
 int putc(int c, FILE *f);
 int puts(const char *s);
+size_t fread(char *d, size_t size, size_t count, FILE *f);
+size_t fwrite(const char *s, size_t size, size_t count, FILE *f);
