@@ -28,15 +28,24 @@ void *malloc(size_t size) {
 }
 
 void *realloc(void *p, size_t new_size) {
-    size_t old_size = *(size_t *)(p - sizeof(size_t));
+    if (p == 0) {
+        return malloc(new_size);
+    }
+    // really need to use a struct + helpers. this is so prone to human error.
+    void *origin = p - sizeof(size_t);
+    size_t old_size = *(size_t *)p;
+    // if you realloc more than 31/63 bits more, you should *really* just do a malloc
+    off_t diff = new_size - old_size;
     if (new_size > old_size) {
-        void *extra = mmap_malloc(p + old_size, new_size - old_size);
-        if (extra != 0) {
-            *(size_t *)(p - sizeof(size_t)) = new_size;
-        }
-        return p;
+        // tried alignment + mmap, but it always made a split allocation
+        // so I can't zero-cost realloc unless I preallocate+split like a real allocator
+        void *new = malloc(new_size);
+        memcpy(new, p, old_size - sizeof(size_t));
+        free(p);
+        return new;
     } else if (new_size < old_size) {
-        _munmap(p + old_size, old_size - new_size);
+        _munmap(origin + old_size, diff);
+        *(size_t *)origin = new_size;
     }
     return p;
 }
