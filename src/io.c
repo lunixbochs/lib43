@@ -1,5 +1,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #include "stdlib.h"
 #include "syscalls.h"
@@ -78,6 +80,53 @@ static int buf_read(FILE *f, char *d, int len) {
         }
     }
     return ret;
+}
+
+FILE *fopen(const char *path, const char *mode) {
+    int mask;
+    switch (mode[0]) {
+        case 'r':
+            mask = O_RDONLY;
+            if (mode[1] == '+') // r+
+                mask = O_RDWR;
+            break;
+        case 'w':
+            mask = O_WRONLY;
+            if (mode[1] == '+') // w+
+                mask = O_RDWR | O_CREAT | O_TRUNC;
+            break;
+        case 'a':
+            mask = O_WRONLY | O_APPEND | O_CREAT;
+            if (mode[1] == '+') // a+
+                mask = O_RDWR | O_APPEND | O_CREAT;
+            break;
+        default:
+            return 0;
+    }
+    // TODO: source this from somewhere real
+    mode_t perm = 0600;
+    int fd = _open(path, mask, perm);
+    if (fd < 0) {
+        return 0;
+    }
+    FILE *f = malloc(sizeof(FILE));
+    f->fd = fd;
+    f->pos = 0;
+    f->size = 0;
+    f->type = FD_FILE;
+    return f;
+}
+
+int fclose(FILE *f) {
+    fflush(f);
+    _close(f->fd);
+    free(f);
+    // TODO: error checking
+    return 0;
+}
+
+int fseek(FILE *f, long offset, int whence) {
+    return _lseek(f->fd, offset, whence);
 }
 
 size_t fread(char *d, size_t size, size_t count, FILE *f) {
