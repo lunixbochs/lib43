@@ -8,7 +8,6 @@ link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 include_directories(src)
 
 enable_language(ASM-ATT)
-add_definitions(-nostdlib)
 set(CMAKE_C_FLAGS "-std=c99 -Os -ffreestanding -fno-stack-protector -nostdlib")
 
 # OS test
