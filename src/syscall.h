@@ -10,9 +10,9 @@
 #  define SYS(name) SYS_##name
 #endif
 
-#ifdef __LP64__
+#if defined(__x86_64)
 typedef int64_t abi_long;
-#else
+#elif defined(__i386__) || defined(__mips__)
 typedef int32_t abi_long;
 #endif
 
