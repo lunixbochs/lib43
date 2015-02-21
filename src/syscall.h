@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <sys/syscall.h>
 
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(__LP64__)
 #  define SYS(name) (SYS_##name + 0x2000000)
 #else
 #  define SYS(name) SYS_##name

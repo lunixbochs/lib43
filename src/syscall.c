@@ -1,12 +1,6 @@
 #include <sys/syscall.h>
 #include "syscall.h"
 
-#ifdef __APPLE__
-#  define SYS(name) (SYS_##name + 0x2000000)
-#else
-#  define SYS(name) SYS_##name
-#endif
-
 #define reg(name) register abi_long name __asm__(#name)
 #if defined(__linux__) || defined(__APPLE__)
 #  ifdef __x86_64__
