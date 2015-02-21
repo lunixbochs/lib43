@@ -11,9 +11,10 @@ size_t _read(int fd, const void *buf, size_t len) {
     return syscall3(SYS(read), fd, buf, len);
 }
 void *_mmap(void *addr, size_t len, int prot, int flags, int fd, off_t off) {
-    int num = SYS(mmap);
 #ifdef SYS_mmap2
-    num = SYS(mmap2);
+    int num = SYS(mmap2);
+#else
+    int num = SYS(mmap);
 #endif
     return (void *)syscall6(num, addr, len, prot, flags, fd, off);
 }
