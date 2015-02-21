@@ -36,6 +36,11 @@ if (NOT DEFINED CPU)
     endif()
 endif()
 
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)" AND CPU MATCHES "i386")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+    set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -m32")
+endif()
+
 file(GLOB_RECURSE LIB43_SOURCE src/*.c)
 file(GLOB_RECURSE LIB43_PLATFORM_SOURCE arch/${CPU}/${OS}/*.s arch/${CPU}/${OS}/*.c)
 file(GLOB LIB43_ARCH_SOURCE arch/${CPU}/*.s arch/${CPU}/*.c)
