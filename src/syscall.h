@@ -12,7 +12,7 @@
 
 #if defined(__x86_64)
 typedef int64_t abi_long;
-#elif defined(__i386__) || defined(__mips__)
+#elif defined(__i386__) || defined(__mips__) || defined(__arm__)
 typedef int32_t abi_long;
 #endif
 
