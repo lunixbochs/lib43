@@ -46,5 +46,6 @@ file(GLOB_RECURSE LIB43_PLATFORM_SOURCE arch/${CPU}/${OS}/*.s arch/${CPU}/${OS}/
 file(GLOB LIB43_ARCH_SOURCE arch/${CPU}/*.s arch/${CPU}/*.c)
 add_library(43 STATIC ${LIB43_SOURCE} ${LIB43_PLATFORM_SOURCE} ${LIB43_ARCH_SOURCE})
 
-add_executable(test example/test.c)
-target_link_libraries(test 43)
+add_executable(test1 example/test.c)
+target_link_libraries(test1 43)
+set_target_properties(test1 PROPERTIES OUTPUT_NAME "test")
