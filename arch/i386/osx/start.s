@@ -8,6 +8,7 @@ start:
     push %eax
     push %ecx
     call _main
+    push %eax
 
     push _stdout
     call _fflush
