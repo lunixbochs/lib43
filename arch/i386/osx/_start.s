@@ -1,16 +1,16 @@
 .text
-.global _start
-_start:
+.global start
+start:
     xor %ebp, %ebp
     pop %ecx
     mov %esp, %eax
     and $-16, %esp
     push %eax
     push %ecx
-    call main
+    call _main
 
-    push stdout
-    call fflush
+    push _stdout
+    call _fflush
     pop %ecx
 
-    call _exit
+    call __exit
