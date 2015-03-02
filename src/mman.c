@@ -20,11 +20,17 @@ void *calloc(size_t count, size_t size) {
 }
 
 void *malloc(size_t size) {
+#ifdef __mips__
+    void *pos = _brk(0);
+    _brk(pos + size);
+    return (void *)pos;
+#else
     size += sizeof(size_t);
     void *p = mmap_malloc(0, size);
     if (p == 0) return 0;
     *(size_t *)p = size;
     return p + sizeof(size_t);
+#endif
 }
 
 void *realloc(void *p, size_t new_size) {
@@ -51,9 +57,11 @@ void *realloc(void *p, size_t new_size) {
 }
 
 void free(void *p) {
+#ifndef __mips__
     if (p != 0) {
         p -= sizeof(size_t);
         size_t size = *(size_t *)p;
         _munmap(p, size);
     }
+#endif
 }

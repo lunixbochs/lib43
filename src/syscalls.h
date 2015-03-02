@@ -8,3 +8,4 @@ void _exit(int status);
 off_t _lseek(int fd, off_t offset, int whence);
 int _open(const char *path, int flags, ...);
 int _close(int fd);
+void *_brk(void *addr);

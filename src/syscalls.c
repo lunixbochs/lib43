@@ -16,7 +16,11 @@ void *_mmap(void *addr, size_t len, int prot, int flags, int fd, off_t off) {
 #else
     int num = SYS(mmap);
 #endif
-    return (void *)syscall6(num, addr, len, prot, flags, fd, off);
+    abi_long ret = syscall6(num, addr, len, prot, flags, fd, off);
+    if (ret == -1) {
+        return (void *)0;
+    }
+    return (void *)ret;
 }
 int _munmap(void *addr, size_t len) {
     return syscall2(SYS(munmap), addr, len);
@@ -40,3 +44,8 @@ int _open(const char *path, int flags, ...) {
 int _close(int fd) {
     return syscall1(SYS(close), fd);
 }
+#ifdef SYS_brk
+void *_brk(void *addr) {
+    return (void *)syscall1(SYS(brk), addr);
+}
+#endif

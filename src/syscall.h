@@ -1,6 +1,8 @@
 #ifndef SYSCALL_H
 #define SYSCALL_H
 
+#include "errno.h"
+
 #include <stdint.h>
 #include <sys/syscall.h>
 
@@ -18,9 +20,12 @@ typedef int32_t abi_long;
 
 extern abi_long syscall(int n, abi_long a1, abi_long a2, abi_long a3, abi_long a4, abi_long a5, abi_long a6);
 
-#define syscall6(n, a1, a2, a3, a4, a5, a6)                     \
-    (abi_long)syscall((abi_long)a1, (abi_long)a2, (abi_long)a3, \
-                      (abi_long)a4, (abi_long)a5, (abi_long)a6, n)
+#define syscall6(n, a1, a2, a3, a4, a5, a6)                             \
+    ({                                                                  \
+        errno = 0;                                                      \
+        (abi_long)syscall((abi_long)a1, (abi_long)a2, (abi_long)a3,     \
+                          (abi_long)a4, (abi_long)a5, (abi_long)a6, n); \
+    })
 #define syscall5(n, args...) syscall6(n, args, 0)
 #define syscall4(n, args...) syscall5(n, args, 0)
 #define syscall3(n, args...) syscall4(n, args, 0)

@@ -4,8 +4,8 @@ __start:
     subu $fp, $fp, $fp
     lui  $gp, %hi(_gp)
     addi $gp, %lo(_gp)
-    lw   $3,  ($sp)  # argc
-    addu $4,  $sp, 4 # argv
+    lw   $a0,  ($sp)  # argc
+    addu $a1,  $sp, 4 # argv
     lw   $25, %call16(main)($gp)
     and  $sp, $sp, -8
     addi $sp, $sp, -4*6
