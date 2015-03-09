@@ -4,10 +4,12 @@
 
 #include <sys/mman.h>
 
-#if !defined(MAP_ANONYMOUS) && defined(__linux__)
-#define MAP_ANONYMOUS 0x20
-#elif defined(__APPLE__)
-#define MAP_ANONYMOUS 0x1000
+#if !defined(MAP_ANONYMOUS)
+#  ifdef __linux__
+#    define MAP_ANONYMOUS 0x20
+#  elif defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+#    define MAP_ANONYMOUS 0x1000
+#  endif
 #endif
 
 #define mmap_malloc(addr, size) _mmap(addr, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0)
