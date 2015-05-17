@@ -10,7 +10,7 @@ int digittoint(int c) {
 }
 
 int isalnum(int c) {
-    return isalpha || isdigit(c);
+    return isalpha(c) || isdigit(c);
 }
 
 int isalpha(int c) {
