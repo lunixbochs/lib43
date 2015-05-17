@@ -21,7 +21,7 @@ int atoi(char *str) {
     while ((c = *str++) != '\0') {
         if (c >= '0' && c <= '9') {
             i *= 10;
-            i |= (c - 48);
+            i += (c - 48);
         }
     }
     return i;
