@@ -1,10 +1,17 @@
 #include "string.h"
 #include "ctype.h"
+#include "mman.h"
 
 size_t strlen(const char *s1) {
     size_t i = 0;
     do i++; while (s1[i] != '\0');
     return i;
+}
+
+void *strdup(const char *s1) {
+    void *out = malloc(strlen(s1));
+    strcpy(out, s1);
+    return out;
 }
 
 char *strcpy(char *dst, const char *src) {
