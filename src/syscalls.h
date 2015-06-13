@@ -12,3 +12,4 @@ int _open(const char *path, int flags, ...);
 int _close(int fd);
 void *_brk(void *addr);
 int _ptrace(int request, pid_t pid, uintptr_t addr, int data);
+int _getpid();

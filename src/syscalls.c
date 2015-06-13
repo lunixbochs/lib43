@@ -55,3 +55,6 @@ void *_brk(void *addr) {
 int _ptrace(int request, pid_t pid, uintptr_t addr, int data) {
     return syscall4(SYS(ptrace), request, pid, addr, data);
 }
+int _getpid() {
+    return syscall0(SYS(getpid));
+}
