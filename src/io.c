@@ -203,14 +203,12 @@ int printf(const char *fmt, ...) {
                 case 'u':
                     puts(itoa(arg(int), 10));
                     break;
+                case 'p':
                 case 'x':
                     puts(itoa(arg(int), 16));
                     break;
                 case 'X':
                     puts(strupr(itoa(arg(int), 16)));
-                    break;
-                case 'p':
-                    puts(itoa(arg(int), 10));
                     break;
             }
         } else if (c == '%') {
