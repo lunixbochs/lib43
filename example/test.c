@@ -14,6 +14,8 @@ int main(int argc, char **argv) {
     printf("test: %s\n", test);
     free(test);
 
+    printf("strcmp: %d, %d, %d\n", strcmp("a", "b"), strcmp("b", "a"), strcmp("a", "a"));
+
     char buf1[6] = {0};
     char buf2[6] = {0};
     FILE *f = fopen("test", "w+");

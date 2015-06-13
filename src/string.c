@@ -14,6 +14,28 @@ void *strdup(const char *s1) {
     return out;
 }
 
+int strcmp(const char *s1, const char *s2) {
+    char c1, c2;
+    do {
+        c1 = *s1++;
+        c2 = *s2++;
+        if (c1 < c2) return -1;
+        if (c1 > c2) return 1;
+    } while (c1 != 0 && c2 != 0);
+    return 0;
+}
+
+int strncmp(const char *s1, const char *s2, size_t n) {
+    for (size_t pos = 0; pos < n; pos++) {
+        char c1 = *s1++;
+        char c2 = *s2++;
+        if (c1 < c2) return -1;
+        if (c1 > c2) return 1;
+        if (c1 == 0 || c2 == 0) break;
+    }
+    return 0;
+}
+
 char *strcpy(char *dst, const char *src) {
     char *out = dst;
     do *out++ = *src; while (*src++ != '\0');
