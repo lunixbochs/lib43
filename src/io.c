@@ -19,6 +19,15 @@ static void freset(FILE *f) {
     memset(f->buf, 0, BUFSIZE);
 }
 
+static int buf_seek(FILE *f, long offset, int whence) {
+    f->size = 0;
+    off_t pos = _lseek(f->fd, offset, whence);
+    if (pos >= 0) {
+        f->pos = pos;
+    }
+    return pos;
+}
+
 static int buf_write(FILE *f, const char *s, int len) {
     if (len == 0) {
         return fflush(f) - f->size;
@@ -126,7 +135,7 @@ int fclose(FILE *f) {
 }
 
 int fseek(FILE *f, long offset, int whence) {
-    return _lseek(f->fd, offset, whence);
+    return buf_seek(f, offset, whence);
 }
 
 size_t fread(char *d, size_t size, size_t count, FILE *f) {
