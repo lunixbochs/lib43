@@ -49,3 +49,6 @@ void *_brk(void *addr) {
     return (void *)syscall1(SYS(brk), addr);
 }
 #endif
+int _ptrace(int request, pid_t pid, uintptr_t addr, int data) {
+    return (int)syscall4(SYS(ptrace), request, pid, addr, data);
+}
