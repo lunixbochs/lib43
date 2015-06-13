@@ -25,6 +25,9 @@ void *_mmap(void *addr, size_t len, int prot, int flags, int fd, off_t off) {
 int _munmap(void *addr, size_t len) {
     return syscall2(SYS(munmap), addr, len);
 }
+int _mprotect(void *addr, size_t len, int prot) {
+    return syscall3(SYS(mprotect), addr, len, prot);
+}
 void _exit(int status) {
     (void)syscall1(SYS(exit), status);
 }
@@ -50,5 +53,5 @@ void *_brk(void *addr) {
 }
 #endif
 int _ptrace(int request, pid_t pid, uintptr_t addr, int data) {
-    return (int)syscall4(SYS(ptrace), request, pid, addr, data);
+    return syscall4(SYS(ptrace), request, pid, addr, data);
 }
