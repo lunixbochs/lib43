@@ -1,3 +1,4 @@
+#include <math.h>
 #include <unistd.h>
 #include "stdlib.h"
 
@@ -14,6 +15,7 @@ int main(int argc, char **argv) {
     printf("test: %s\n", test);
     free(test);
 
+    printf("ceil(1.0) = %d, ceil(1.1) = %d\n", (int)ceil(1.0), (int)ceil(1.1));
     printf("strcmp: %d, %d, %d\n", strcmp("a", "b"), strcmp("b", "a"), strcmp("a", "a"));
 
     char buf1[6] = {0};

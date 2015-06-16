@@ -1,5 +1,6 @@
 #include <stdint.h>
 
 double ceil(double d) {
-    return d + (1 - (d - (int64_t)d));
+    double frac = d - (int64_t)d;
+    return frac ? d + (1 - frac) : d;
 }
