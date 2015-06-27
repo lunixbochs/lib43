@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 #include "string.h"
 #include "ctype.h"
 #include "mman.h"
@@ -15,14 +17,7 @@ void *strdup(const char *s1) {
 }
 
 int strcmp(const char *s1, const char *s2) {
-    char c1, c2;
-    do {
-        c1 = *s1++;
-        c2 = *s2++;
-        if (c1 < c2) return -1;
-        if (c1 > c2) return 1;
-    } while (c1 != 0 && c2 != 0);
-    return 0;
+    return strncmp(s1, s2, SIZE_MAX);
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
@@ -37,9 +32,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 char *strcpy(char *dst, const char *src) {
-    char *out = dst;
-    do *out++ = *src; while (*src++ != '\0');
-    return dst;
+    return strncpy(dst, src, SIZE_MAX);
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
@@ -49,8 +42,7 @@ char *strncpy(char *dst, const char *src, size_t n) {
 }
 
 char *strcat(char *s1, const char *s2) {
-    strcpy(s1 + strlen(s1), s2);
-    return s1;
+    return strncat(s1, s2, SIZE_MAX);
 }
 
 char *strncat(char *s1, const char *s2, size_t n) {
