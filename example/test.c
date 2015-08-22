@@ -4,13 +4,13 @@
 
 int main(int argc, char **argv) {
     printf("hello with printf: %s\n", "world");
-    printf("argv:\n");
+    printf("args (%d):\n", argc);
     for (int i = 0; i < argc; i++) {
-        printf("%s\n", argv[i]);
+        printf("  %d @0x%p = \"%s\"\n", i, argv[i], argv[i]);
     }
     void *test = malloc(100);
     test = realloc(test, 10000);
-    memset(test, '\0', 10000);
+    memset(test, '\0', 100);
     strcpy(test, "hi");
     printf("test: %s\n", test);
     free(test);
@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 
     char buf1[6] = {0};
     char buf2[6] = {0};
-    FILE *f = fopen("test", "w+");
+    FILE *f = fopen("test.file", "w+");
     fwrite("success\n", 1, 8, f);
     fflush(f);
     fseek(f, 0, SEEK_SET);
@@ -29,11 +29,10 @@ int main(int argc, char **argv) {
     fclose(f);
 
     // freopen?
-    f = fopen("test", "r");
+    f = fopen("test.file", "r");
     fseek(f, 0, SEEK_SET);
     fread(buf2, 1, 8, f);
     printf("file test 2: %s\n", buf2);
     fclose(f);
-
     return 0;
 }
