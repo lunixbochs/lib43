@@ -32,7 +32,7 @@ void _exit(int status) {
     (void)syscall1(SYS(exit), status);
 }
 off_t _lseek(int fd, off_t offset, int whence) {
-    return syscall2(SYS(lseek), offset, whence);
+    return syscall3(SYS(lseek), fd, offset, whence);
 }
 int _open(const char *path, int flags, ...) {
     va_list arg;
