@@ -18,8 +18,8 @@ int main(int argc, char **argv) {
     printf("ceil(1.0) = %d, ceil(1.1) = %d\n", (int)ceil(1.0), (int)ceil(1.1));
     printf("strcmp: %d, %d, %d\n", strcmp("a", "b"), strcmp("b", "a"), strcmp("a", "a"));
 
-    char buf1[6] = {0};
-    char buf2[6] = {0};
+    char buf1[10] = {0};
+    char buf2[10] = {0};
     FILE *f = fopen("test.file", "w+");
     fwrite("success\n", 1, 8, f);
     fflush(f);
