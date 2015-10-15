@@ -15,6 +15,10 @@ int main(int argc, char **argv) {
     printf("test: %s\n", test);
     free(test);
 
+    printf("memcmp(\"aa\", \"aa\") == %d\n", memcmp("aa", "aa", 2));
+    printf("memcmp(\"aa\", \"bb\") == %d\n", memcmp("aa", "bb", 2));
+    printf("memcmp(\"bb\", \"aa\") == %d\n", memcmp("bb", "aa", 2));
+
     printf("ceil(1.0) = %d, ceil(1.1) = %d\n", (int)ceil(1.0), (int)ceil(1.1));
     printf("strcmp: %d, %d, %d\n", strcmp("a", "b"), strcmp("b", "a"), strcmp("a", "a"));
 

@@ -1,12 +1,11 @@
 #include "mem.h"
 
 int memcmp(const void *p1, const void *p2, size_t len) {
-    char *c1 = (char *)p1;
-    char *c2 = (char *)p2;
+    unsigned char *c1 = (unsigned char *)p1, *c2 = (unsigned char *)p2;
     for (size_t i = 0; i < len; i++) {
-        if (*c1 < *c2) {
+        if (c1[i] < c2[i]) {
             return -1;
-        } else if (*c1 > *c2) {
+        } else if (c1[i] > c2[i]) {
             return 1;
         }
     }
