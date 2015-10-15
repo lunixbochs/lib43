@@ -46,6 +46,7 @@ void *realloc(void *p, size_t new_size) {
 #ifdef __mips__
     void *new = malloc(p, new_size);
     memcpy(new, old, old_size);
+    return new;
 #endif
     // if you realloc more than 31/63 bits more, you should *really* just do a malloc
     off_t diff = new_size - old_size;
