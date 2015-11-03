@@ -15,5 +15,6 @@ __start:
     lw   $25, %call16(fflush)($gp)
     jalr $25
 
+    move $a0, $v0
     lw   $25, %call16(_exit)($gp)
     jalr $25

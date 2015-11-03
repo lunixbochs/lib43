@@ -25,7 +25,7 @@ void *malloc(size_t size) {
 #ifdef __mips__
     void *pos = _brk(0);
     _brk(pos + size + sizeof(size_t));
-    (size_t *)pos = size;
+    *(size_t *)pos = size;
     return (void *)pos + sizeof(size_t);
 #else
     size += sizeof(size_t);
@@ -44,8 +44,8 @@ void *realloc(void *p, size_t new_size) {
     void *origin = p - sizeof(size_t);
     size_t old_size = *(size_t *)origin;
 #ifdef __mips__
-    void *new = malloc(p, new_size);
-    memcpy(new, old, old_size);
+    void *new = malloc(new_size);
+    memcpy(new, p, old_size);
     return new;
 #endif
     // if you realloc more than 31/63 bits more, you should *really* just do a malloc
