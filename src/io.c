@@ -196,9 +196,15 @@ int printf(const char *fmt, ...) {
                 case 'c':
                     putc(arg(int), stdout);
                     break;
-                case 's':
-                    puts(arg(char *));
+                case 's': {
+                    char *s = arg(char *);
+                    if (s == NULL) {
+                        puts("(null)");
+                    } else {
+                        puts(s);
+                    }
                     break;
+                }
                 case 'd':
                 case 'i': {
                     int i = arg(int);
