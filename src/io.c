@@ -207,12 +207,7 @@ int printf(const char *fmt, ...) {
                 }
                 case 'd':
                 case 'i': {
-                    int i = arg(int);
-                    if (i < 0) {
-                        i = (i ^ -1) + 1;
-                        puts("-");
-                    }
-                    puts(itoa(i, 10));
+                    puts(itoa_signed(arg(int), 10));
                     break;
                 }
                 case 'u':

@@ -6,13 +6,26 @@ char *itoa(unsigned int i, int base) {
     if (base < 0 || base > 16) {
         return "(invalid base)";
     }
-    static char buf[11] = {0};
-    char *pos = &buf[10];
+    static char buf[12] = {0};
+    char *pos = &buf[11];
     do {
         *--pos = (char)digits[i % base];
         i /= base;
     } while (i > 0);
     return pos;
+}
+
+char *itoa_signed(int i, int base) {
+    if (i < 0) {
+        char *tmp = itoa(-i, base);
+        if (tmp[0] == '(' || tmp[0] == '\0') {
+            return tmp;
+        }
+        *--tmp = '-';
+        return tmp;
+    } else {
+        return itoa(i, base);
+    }
 }
 
 int atoi(char *str) {
