@@ -10,9 +10,9 @@ size_t strlen(const char *s1) {
     return i;
 }
 
-void *strdup(const char *s1) {
-    void *out = malloc(strlen(s1));
-    strcpy(out, s1);
+char *strdup(const char *s1) {
+    char *out = (char *)malloc(strlen(s1));
+    if (out) strcpy(out, s1);
     return out;
 }
 
